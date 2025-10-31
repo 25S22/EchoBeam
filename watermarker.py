@@ -6,7 +6,7 @@ import argparse
 
 WATERMARK_CONFIG = {
     "chunk_size": 8192,
-    "watermark_strength": 0.4,      # Stronger for air transmission
+    "watermark_strength": 0.7,      # Stronger for air transmission
     "random_seed": 42,
     "pn_sequence_length": 256,
     
@@ -191,3 +191,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
