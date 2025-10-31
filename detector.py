@@ -19,8 +19,8 @@ DETECTOR_CONFIG = {
         (18400.0, 18600.0), (18600.0, 18800.0), (18800.0, 19000.0),
     ],
     
-    "detection_threshold": 0.20,    # Correlation threshold
-    "cooldown_period": 3,           # Seconds between detections
+    "detection_threshold": 0.3,    # Correlation threshold (higher = fewer false positives)
+    "cooldown_period": 5,           # Seconds between detections
 }
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -132,6 +132,8 @@ class AudioDetector:
         if preamble_corr < self.config['detection_threshold']:
             return None
         
+        logging.info(f"🔍 Preamble detected! Correlation: {preamble_corr:.3f}")
+        
         # 2. Decode bits
         detected_bits = []
         
@@ -161,7 +163,7 @@ class AudioDetector:
         
         detected_code = ''.join(detected_bits)
         
-        logging.info(f"🎵 WATERMARK DETECTED: {detected_code} (confidence: {preamble_corr:.2f})")
+        logging.info(f"🎵 WATERMARK DETECTED: '{detected_code}' (confidence: {preamble_corr:.3f})")
         self.last_detection_time = time.time()
         
         return detected_code
